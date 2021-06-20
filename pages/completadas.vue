@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Pendientes</h1>
+    <h1>Completadas</h1>
   </div>
 </template>
 
