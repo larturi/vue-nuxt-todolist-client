@@ -14,7 +14,7 @@
               >
               
               <button 
-                class="shadow appearance-none w-full py-3 px-3 mt-1 bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" 
+                class="shadow appearance-none w-full py-3 px-3 mt-1 bg-green-700 text-white active:bg-green-600 font-bold uppercase text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" 
                 type="submit"
               >
                 Añadir Tarea
@@ -23,13 +23,17 @@
             </form>
 
             <div>
-              <h1 class="mt-8">Tareas Pendientes</h1>
-              <Tarea 
-                v-for="tarea of tasks"
-                :key="tarea.id"
-                :name="tarea.name" 
-                :id="tarea.id"
-              />
+              <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-gray-600 p-3 border-l-8 border-yellow-600">Tareas Pendientes</h1>
+              <ul class="mb-10 overflow-scroll">
+                <Tarea 
+                  v-for="(tarea, index) in tasks"
+                  :key="tarea.id"
+                  :task="tarea"
+                  :index="index"
+                  @removeTask="removeTask(tarea)"
+                />
+              </ul>
+              
             </div>
           </div>
         </div>
@@ -92,8 +96,12 @@ export default {
       }
     },
 
-    removeTask(index) {
-      this.$store.commit('removeTask', index);
+    async removeTask(tarea) {
+      // Elimino del store
+      this.$store.commit('removeTask', tarea);
+      
+      // Elimino de la BD
+      const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, { "completed": true, "name": tarea.name });
     },
 
     editTask(task) {
@@ -104,6 +112,8 @@ export default {
 
       try {
         const { data } = await axios.get('http://todolist-vue-laravel-server.test/api/tasks');
+
+        this.$store.commit('clearTasks');
 
         data.forEach(task => {
           this.$store.commit('addTask', task);
