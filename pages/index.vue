@@ -101,7 +101,8 @@ export default {
       this.$store.commit('removeTask', tarea);
       
       // Elimino de la BD
-      const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, { "completed": true, "name": tarea.name });
+      tarea.deleted = true;
+      const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
     },
 
     editTask(task) {
