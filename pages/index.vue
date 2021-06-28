@@ -17,20 +17,22 @@
                 class="shadow appearance-none w-full py-3 px-3 mt-1 bg-green-700 text-white active:bg-green-600 font-bold uppercase text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" 
                 type="submit"
               >
-                Añadir Tarea
+                {{ (isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
               </button>
 
             </form>
 
             <div>
               <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-gray-600 p-3 border-l-8 border-yellow-600">Tareas Pendientes</h1>
-              <ul class="mb-10 overflow-scroll">
+              <ul class="mb-10 bg-gray-900">
                 <Tarea 
                   v-for="(tarea, index) in tasks"
                   :key="tarea.id"
                   :task="tarea"
                   :index="index"
                   @removeTask="removeTask(tarea)"
+                  @selectTask="selectTask(tarea)"
+                  @cancelTask="cancelTask()"
                 />
               </ul>
               
@@ -51,7 +53,8 @@ export default {
 
   data() {
     return {
-      task: ''
+      task: '',
+      isEdit: false
     }
   },
 
@@ -95,22 +98,31 @@ export default {
 
       }
     },
-
+    selectTask(tarea) {
+      this.task = tarea.name;
+      this.isEdit = true;
+    },
+    cancelTask() {
+      this.task = '';
+      this.isEdit = false;
+    },
     async removeTask(tarea) {
       // Elimino del store
       this.$store.commit('removeTask', tarea);
       
       // Elimino de la BD
       tarea.deleted = true;
-      const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
+      await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
     },
-
-    editTask(task) {
-
+    async editTask(tarea) {
+      // Edito en el store
+      // this.$store.commit('editTask', tarea);
+      
+      // Edito en la BD
+      // tarea.name = "Lalala";
+      // await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
     },
-
     async getTasks() {
-
       try {
         const { data } = await axios.get('http://todolist-vue-laravel-server.test/api/tasks');
 
@@ -123,8 +135,7 @@ export default {
       } catch (error) {
         console.error(error);
       }
-
-    }
+    },
 
   }
 

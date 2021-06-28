@@ -11,6 +11,12 @@ export default {
         Vue.delete(state.tasks, index);
     },
 
+    editTask(state, payload) {
+        // Obtengo el index para editar el store
+        var index = state.tasks.map(function(x) {return x.id; }).indexOf(payload.id);
+        // Vue.update(state.tasks, index);
+    },
+
     clearTasks(state) {
         state.tasks = [];
     },
