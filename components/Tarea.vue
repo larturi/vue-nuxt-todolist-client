@@ -11,7 +11,7 @@
             <button 
                 class="p-2 -mt-5 w-20 font-bold bg-yellow text-black text-xs mr-2"
                 v-on:click.prevent="onClickSelect(task)"
-                v-if="!isEdit"
+                v-if="!isEdit && padre==='pendientes'"
             >EDITAR</button>
 
             <button 
@@ -43,6 +43,7 @@ export default {
     props: {
         task: {},
         index: 0,
+        padre: ''
     },
 
     created() {

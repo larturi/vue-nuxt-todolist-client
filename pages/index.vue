@@ -33,6 +33,7 @@
                   :key="tarea.id"
                   :task="tarea"
                   :index="index"
+                  padre="pendientes"
                   @removeTask="removeTask(tarea)"
                   @toggleCompletedTask="toggleCompletedTask(tarea)"
                   @selectTask="selectTask(tarea)"

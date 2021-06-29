@@ -1,6 +1,7 @@
 export default () => ({
 
-    tasks: []
+    tasks: [],
+    tasksCompleted: [],
 
 });
   

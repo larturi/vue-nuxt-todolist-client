@@ -21,4 +21,18 @@ export default {
         state.tasks = [];
     },
 
+    addCompletedTask(state, payload) {
+        state.tasksCompleted.push(payload)
+    },
+
+    clearCompletedTasks(state) {
+        state.tasksCompleted = [];
+    },
+
+    removeCompletedTask(state, payload) {
+        // Obtengo el index para eliminar del store y elimino
+        var index = state.tasksCompleted.map(function(x) {return x.id; }).indexOf(payload.id);
+        Vue.delete(state.tasksCompleted, index);
+    },
+
 }
