@@ -6,21 +6,22 @@
         <div class="flex justify-center">
           <div class="mt-3 md:w-6/12">
             <form @submit.prevent="addTask">
-              <input 
-                type="text"
-                v-model="task"
-                placeholder="¿Qué vas a hacer hoy?"
-                class="shadow appearance-none border w-full py-2 px-3 text-black focus:outline-none focus:shadow-outline"
-              >
-              
-              <button 
-                class="shadow appearance-none w-full py-3 px-3 mt-1 font-bold uppercase 
-                       text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
-                :class="colorButtonAddOrEdit" 
-                type="submit"
-              >
-                {{ (isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
-              </button>
+
+              <div class="relative mt-5">
+                <input 
+                  class="w-full h-10 shadow appearance-none pl-3 pr-8 py-6 text-black text-base placeholder-gray focus:shadow-outline" 
+                  type="text"
+                  v-model="task"
+                  placeholder="¿Qué vas a hacer hoy?"
+                />
+                <button 
+                  class="absolute inset-y-0 right-0 flex items-center px-4 py-6 font-bold text-white"
+                  :class="colorButtonAddOrEdit" 
+                  type="submit"
+                >
+                   {{ (isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
+                </button>
+              </div>
 
             </form>
 
@@ -76,7 +77,7 @@ export default {
       return this.$store.state.tasks;
     },
     colorButtonAddOrEdit() {
-      return this.isEdit ? 'bg-yellow text-black' : 'bg-gray text-white';
+      return this.isEdit ? 'bg-yellow text-black' : 'bg-pink text-white';
     }
   },
 

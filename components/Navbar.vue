@@ -9,32 +9,39 @@
           <fa icon="bars"></fa>
         </button>
       </div>
+      
       <div v-bind:class="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
-        <ul class="flex flex-col lg:flex-row list-none ml-auto">
-          <li class="nav-item">
-            <nuxt-link 
-                to="/"
-                class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
-            >
-              <span class="ml-2">Pendientes</span>
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-           <nuxt-link 
-                to="/completadas"
-                class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
-            >
-              <span class="ml-2">Completadas</span>
-            </nuxt-link>
-          </li>
-          
-        </ul>
+
+          <ul class="flex flex-col lg:flex-row list-none ml-auto">
+            
+            <li class="nav-item">
+              <router-link 
+                  to="/"
+                  class="px-1 py-2 mr-6 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+              >
+                <span>Pendientes</span>
+              </router-link>
+            </li>
+
+            <li class="nav-item">
+              <router-link 
+                  to="/completadas"
+                  class="px-1 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+              >
+                <span>Completadas</span>
+              </router-link>
+            </li>
+            
+          </ul>
+
       </div>
+
     </div>
   </nav>
 </template>
 
 <script>
+
 export default {
   name: "indigo-navbar",
   data() {
@@ -46,6 +53,22 @@ export default {
     toggleNavbar: function(){
       this.showMenu = !this.showMenu;
     }
+  },
+  mounted() {
   }
 }
 </script>
+
+
+<style>
+/* home route and active route will show in bold as it matches / and /about */
+a.nuxt-link-active {
+  font-weight: bold;
+}
+/* exact link will show the primary color for only the exact matching link */
+a.nuxt-link-exact-active {
+  border-bottom: solid 2px black;
+}
+
+</style>
+
