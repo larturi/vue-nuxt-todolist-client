@@ -10,11 +10,13 @@
                 type="text"
                 v-model="task"
                 placeholder="¿Qué vas a hacer hoy?"
-                class="shadow appearance-none border w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border w-full py-2 px-3 text-black focus:outline-none focus:shadow-outline"
               >
               
               <button 
-                class="shadow appearance-none w-full py-3 px-3 mt-1 bg-green-700 text-white active:bg-green-600 font-bold uppercase text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" 
+                class="shadow appearance-none w-full py-3 px-3 mt-1 font-bold uppercase 
+                       text-xs hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+                :class="colorButtonAddOrEdit" 
                 type="submit"
               >
                 {{ (isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
@@ -23,14 +25,15 @@
             </form>
 
             <div>
-              <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-gray-600 p-3 border-l-8 border-yellow-600">Tareas Pendientes</h1>
-              <ul class="mb-10 bg-gray-900">
+              <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow">Tareas Pendientes</h1>
+              <ul class="mb-10 bg-black">
                 <Tarea 
                   v-for="(tarea, index) in tasks"
                   :key="tarea.id"
                   :task="tarea"
                   :index="index"
                   @removeTask="removeTask(tarea)"
+                  @toggleCompletedTask="toggleCompletedTask(tarea)"
                   @selectTask="selectTask(tarea)"
                   @cancelTask="cancelTask()"
                 />
@@ -71,6 +74,9 @@ export default {
   computed: {
     tasks() {
       return this.$store.state.tasks;
+    },
+    colorButtonAddOrEdit() {
+      return this.isEdit ? 'bg-yellow text-black' : 'bg-gray text-white';
     }
   },
 
@@ -112,6 +118,14 @@ export default {
       
       // Elimino de la BD
       tarea.deleted = true;
+      await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
+    },
+    async toggleCompletedTask(tarea) {
+      // Elimino del store
+      this.$store.commit('removeTask', tarea);
+      
+      // Actualizo en la BD
+      tarea.completed = true;
       await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
     },
     async editTask(tarea) {
