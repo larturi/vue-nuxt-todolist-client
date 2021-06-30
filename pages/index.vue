@@ -11,7 +11,7 @@
                 <input 
                   class="w-full h-10 shadow appearance-none pl-3 pr-8 py-6 text-black text-base placeholder-gray focus:shadow-outline" 
                   type="text"
-                  v-model="task"
+                  v-model="taskName"
                   placeholder="¿Qué vas a hacer hoy?"
                 />
                 <button 
@@ -58,7 +58,8 @@ export default {
 
   data() {
     return {
-      task: '',
+      task: null,
+      taskName: '',
       isEdit: false
     }
   },
@@ -90,29 +91,56 @@ export default {
 
     async addTask() {
 
-      if (this.task !== '') {
+      if (this.taskName !== '') {
 
-        try {
-          // Grabar en BD
-          const { data } = await axios.post('http://todolist-vue-laravel-server.test/api/tasks', { "name": this.task });
+        if (!this.isEdit) {
 
-          // Actualizar state
-          this.$store.commit('addTask', data);
-          this.task = '';
+          try {
+            // Grabar en BD: Nueva Tarea
+            const { data } = await axios.post('http://todolist-vue-laravel-server.test/api/tasks', { "name": this.taskName });
 
-        } catch (error) {
-          console.error(error);
+            // Actualizar state
+            this.$store.commit('addTask', data);
+            this.taskName = '';
+            this.task = null;
+
+          } catch (error) {
+            console.error(error);
+          }
+          
+        } else {
+
+          try {
+            // Grabar en BD: Edicion
+            const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${this.task.id}`, { "name": this.taskName });
+
+            // Actualizar state
+            this.$store.commit('editTask', data);
+            this.taskName = '';
+            this.task = null;
+
+          } catch (error) {
+            console.error(error);
+          }
+
         }
+
+        this.$store.commit('selectedTask', null);
+        this.isEdit = false;
 
       }
     },
     selectTask(tarea) {
-      this.task = tarea.name;
+      this.task = tarea;
+      this.taskName = tarea.name;
       this.isEdit = true;
+      this.$store.commit('selectedTask', tarea);
     },
     cancelTask() {
-      this.task = '';
+      this.task = null;
+      this.taskName = '';
       this.isEdit = false;
+      this.$store.commit('selectedTask', null);
     },
     async removeTask(tarea) {
       // Elimino del store
@@ -129,14 +157,6 @@ export default {
       // Actualizo en la BD
       tarea.completed = true;
       await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
-    },
-    async editTask(tarea) {
-      // Edito en el store
-      // this.$store.commit('editTask', tarea);
-      
-      // Edito en la BD
-      // tarea.name = "Lalala";
-      // await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
     },
     async getTasks() {
       try {
@@ -157,8 +177,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-
-</style>

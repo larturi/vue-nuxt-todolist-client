@@ -11,13 +11,13 @@
             <button 
                 class="p-2 -mt-5 w-20 font-bold bg-yellow text-black text-xs mr-2"
                 v-on:click.prevent="onClickSelect(task)"
-                v-if="!isEdit && padre==='pendientes'"
+                v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
             >EDITAR</button>
 
             <button 
                 class="p-2 -mt-5 w-20 font-bold bg-purple text-white text-xs mr-2"
                 v-on:click.prevent="onClickCancel()"
-                v-if="isEdit"
+                v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
             >CANCELAR</button>
 
             <button 
@@ -34,24 +34,10 @@
 export default {
     name: 'Tarea',
 
-     data() {
-        return {
-            isEdit: false
-        }
-    },
-
     props: {
         task: {},
         index: 0,
         padre: ''
-    },
-
-    created() {
-      window.addEventListener('click', (e) => {
-        if (!this.$el.contains(e.target)){
-          this.isEdit = false;
-        }
-      })
     },
 
     methods: {
@@ -61,15 +47,12 @@ export default {
         },
         onClickSelect(tarea) {
             this.$emit('selectTask', tarea);
-            this.isEdit = true;
         },
         onClickCancel() {
             this.$emit('cancelTask');
-            this.isEdit = false;
         },
         onClickToggleCompleted() {
             this.$emit('toggleCompletedTask');
-            this.isEdit = false;
         },
 
     }
