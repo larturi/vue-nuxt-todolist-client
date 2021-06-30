@@ -15,7 +15,6 @@
                   :task="tarea"
                   :index="index"
                   padre="completadas"
-                  @toggleCompletedTask="toggleCompletedTask(tarea)"
                 />
               </ul>
               
@@ -65,16 +64,6 @@ export default {
   },
 
   methods: {
-
-    async toggleCompletedTask(tarea) {
-
-      // Elimino del store
-      this.$store.commit('removeCompletedTask', tarea);
-      
-      // Actualizo en la BD
-      tarea.completed = false;
-      await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
-    },
 
     async getTasks() {
       try {
