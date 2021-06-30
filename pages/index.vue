@@ -34,7 +34,6 @@
                   :task="tarea"
                   :index="index"
                   padre="pendientes"
-                  @removeTask="removeTask(tarea)"
                   @toggleCompletedTask="toggleCompletedTask(tarea)"
                   @selectTask="selectTask(tarea)"
                   @cancelTask="cancelTask()"
@@ -142,14 +141,7 @@ export default {
       this.isEdit = false;
       this.$store.commit('selectedTask', null);
     },
-    async removeTask(tarea) {
-      // Elimino del store
-      this.$store.commit('removeTask', tarea);
-      
-      // Elimino de la BD
-      tarea.deleted = true;
-      await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
-    },
+
     async toggleCompletedTask(tarea) {
       // Elimino del store
       this.$store.commit('removeTask', tarea);

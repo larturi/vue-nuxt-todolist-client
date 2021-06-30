@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
     name: 'Tarea',
@@ -42,15 +43,23 @@ export default {
 
     methods: {
 
-        onClickDelete(tarea) {
-            this.$emit('removeTask', tarea);
+        async onClickDelete(tarea) {
+            // Elimino del store
+            this.$store.commit('removeTask', tarea);
+
+            // Elimino de la BD
+            tarea.deleted = true;
+            await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
         },
+
         onClickSelect(tarea) {
             this.$emit('selectTask', tarea);
         },
+
         onClickCancel() {
             this.$emit('cancelTask');
         },
+
         onClickToggleCompleted() {
             this.$emit('toggleCompletedTask');
         },
