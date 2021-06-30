@@ -34,7 +34,6 @@
                   :task="tarea"
                   :index="index"
                   padre="pendientes"
-                  @toggleCompletedTask="toggleCompletedTask(tarea)"
                   @selectTask="selectTask(tarea)"
                   @cancelTask="cancelTask()"
                 />
@@ -129,12 +128,14 @@ export default {
 
       }
     },
+
     selectTask(tarea) {
       this.task = tarea;
       this.taskName = tarea.name;
       this.isEdit = true;
       this.$store.commit('selectedTask', tarea);
     },
+
     cancelTask() {
       this.task = null;
       this.taskName = '';
@@ -142,14 +143,6 @@ export default {
       this.$store.commit('selectedTask', null);
     },
 
-    async toggleCompletedTask(tarea) {
-      // Elimino del store
-      this.$store.commit('removeTask', tarea);
-      
-      // Actualizo en la BD
-      tarea.completed = true;
-      await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
-    },
     async getTasks() {
       try {
         const { data } = await axios.get('http://todolist-vue-laravel-server.test/api/tasks');

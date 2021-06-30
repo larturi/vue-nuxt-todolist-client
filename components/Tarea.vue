@@ -44,8 +44,12 @@ export default {
     methods: {
 
         async onClickDelete(tarea) {
-            // Elimino del store
-            this.$store.commit('removeTask', tarea);
+            // Elimino del store dependiendo si viene de Pendientes o COmpletadas
+            if (tarea.completed) {
+                this.$store.commit('removeCompletedTask', tarea);
+            } else {
+                this.$store.commit('removeTask', tarea);
+            }
 
             // Elimino de la BD
             tarea.deleted = true;
@@ -60,8 +64,13 @@ export default {
             this.$emit('cancelTask');
         },
 
-        onClickToggleCompleted() {
-            this.$emit('toggleCompletedTask');
+        async onClickToggleCompleted(tarea) {
+            // Elimino del store
+            this.$store.commit('removeTask', tarea);
+            
+            // Actualizo en la BD
+            tarea.completed = true;
+            await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
         },
 
     }
