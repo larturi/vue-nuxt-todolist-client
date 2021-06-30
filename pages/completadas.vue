@@ -7,7 +7,13 @@
           <div class="mt-3 md:w-6/12">
 
             <div>
-              <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-pink">Tareas Completadas</h1>
+              <h1 
+                class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-pink"
+                v-if="tasks.length > 0"
+              >
+                Tareas Completadas
+              </h1>
+              
               <ul class="mb-10 bg-black">
                 <Tarea 
                   v-for="(tarea, index) in tasks"
@@ -17,6 +23,11 @@
                   padre="completadas"
                 />
               </ul>
+
+              <NoTasks 
+                v-if="tasks.length === 0"
+                mensaje="No hay tareas completadas."
+              />
               
             </div>
           </div>
@@ -30,6 +41,7 @@
 <script>
 import axios from 'axios';
 import Tarea from '../components/Tarea.vue';
+import NoTasks from '../components/NoTasks.vue';
 
 export default {
 
@@ -47,7 +59,8 @@ export default {
   },
 
   components: {
-    Tarea
+    Tarea,
+    NoTasks
   },
 
   computed: {

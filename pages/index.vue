@@ -27,7 +27,12 @@
             </form>
 
             <div>
-              <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow">Tareas Pendientes</h1>
+              <h1 
+                class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow"
+                v-if="tasks.length > 0"
+              >
+                Tareas Pendientes
+              </h1>
               <ul class="mb-10 bg-black">
                 <Tarea 
                   v-for="tarea in tasks"
@@ -38,6 +43,11 @@
                   @newTaskName="newTaskName()"
                 />
               </ul>
+
+              <NoTasks 
+                v-if="tasks.length === 0"
+                mensaje="No tienes tareas pendientes! 😎"
+              />
               
             </div>
           </div>
@@ -51,6 +61,7 @@
 <script>
 import axios from 'axios';
 import Tarea from '../components/Tarea.vue';
+import NoTasks from '../components/NoTasks.vue';
 
 export default {
 
@@ -68,7 +79,8 @@ export default {
   },
 
   components: {
-    Tarea
+    Tarea,
+    NoTasks
   },
 
   computed: {
