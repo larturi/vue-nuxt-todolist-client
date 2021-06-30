@@ -57,7 +57,11 @@ export default {
         },
 
         onClickSelect(tarea) {
-            this.$emit('selectTask', tarea);
+            this.task = tarea;
+            //this.taskName = tarea.name;
+            this.$store.commit('isEdit', true);
+            this.$store.commit('selectedTask', tarea);
+            this.$emit('newTaskName');
         },
 
         onClickCancel() {

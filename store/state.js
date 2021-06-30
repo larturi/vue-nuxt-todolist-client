@@ -2,7 +2,8 @@ export default () => ({
 
     tasks: [],
     tasksCompleted: [],
-    selectedTask: null
+    selectedTask: null,
+    isEdit: false,
 
 });
   

@@ -5,6 +5,10 @@ export default {
         state.tasks.push(payload)
     },
 
+    isEdit(state, payload) {
+        state.isEdit = payload;
+    },
+
     selectedTask(state, payload) {
         if(payload) {
             state.tasks.map(function(x) {return x.id; }).indexOf(payload.id);

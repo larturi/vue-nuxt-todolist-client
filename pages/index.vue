@@ -5,6 +5,7 @@
       
         <div class="flex justify-center">
           <div class="mt-3 md:w-6/12">
+
             <form @submit.prevent="addTask">
 
               <div class="relative mt-5">
@@ -19,7 +20,7 @@
                   :class="colorButtonAddOrEdit" 
                   type="submit"
                 >
-                   {{ (isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
+                   {{ (this.$store.state.isEdit) ? 'Editar Tarea': 'Añadir Tarea' }}
                 </button>
               </div>
 
@@ -29,13 +30,12 @@
               <h1 class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow">Tareas Pendientes</h1>
               <ul class="mb-10 bg-black">
                 <Tarea 
-                  v-for="(tarea, index) in tasks"
+                  v-for="tarea in tasks"
                   :key="tarea.id"
                   :task="tarea"
-                  :index="index"
                   padre="pendientes"
-                  @selectTask="selectTask(tarea)"
                   @cancelTask="cancelTask()"
+                  @newTaskName="newTaskName()"
                 />
               </ul>
               
@@ -57,8 +57,7 @@ export default {
   data() {
     return {
       task: null,
-      taskName: '',
-      isEdit: false
+      taskName: ''    
     }
   },
 
@@ -77,7 +76,7 @@ export default {
       return this.$store.state.tasks;
     },
     colorButtonAddOrEdit() {
-      return this.isEdit ? 'bg-yellow text-black' : 'bg-pink text-white';
+      return this.$store.state.isEdit ? 'bg-yellow text-black' : 'bg-pink text-white';
     }
   },
 
@@ -91,7 +90,7 @@ export default {
 
       if (this.taskName !== '') {
 
-        if (!this.isEdit) {
+        if (!this.$store.state.isEdit) {
 
           try {
             // Grabar en BD: Nueva Tarea
@@ -110,7 +109,7 @@ export default {
 
           try {
             // Grabar en BD: Edicion
-            const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${this.task.id}`, { "name": this.taskName });
+            const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${this.$store.state.selectedTask.id}`, { "name": this.taskName });
 
             // Actualizar state
             this.$store.commit('editTask', data);
@@ -124,16 +123,8 @@ export default {
         }
 
         this.$store.commit('selectedTask', null);
-        this.isEdit = false;
-
+        this.$store.commit('isEdit', false);
       }
-    },
-
-    selectTask(tarea) {
-      this.task = tarea;
-      this.taskName = tarea.name;
-      this.isEdit = true;
-      this.$store.commit('selectedTask', tarea);
     },
 
     cancelTask() {
@@ -141,6 +132,10 @@ export default {
       this.taskName = '';
       this.isEdit = false;
       this.$store.commit('selectedTask', null);
+    },
+
+    newTaskName() {
+      this.taskName = this.$store.state.selectedTask.name;
     },
 
     async getTasks() {
