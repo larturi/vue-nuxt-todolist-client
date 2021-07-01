@@ -53,7 +53,7 @@ export default {
 
             // Elimino de la BD
             tarea.deleted = true;
-            await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
+            await axios.put(`${process.env.baseUrl}/api/tasks/${tarea.id}`, tarea);
         },
 
         onClickSelect(tarea) {
@@ -80,7 +80,7 @@ export default {
             }
 
             // Actualizo en la BD
-            await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${tarea.id}`, tarea);
+            await axios.put(`${process.env.baseUrl}/api/tasks/${tarea.id}`, tarea);
         },
 
     }

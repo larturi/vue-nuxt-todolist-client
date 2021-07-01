@@ -106,7 +106,7 @@ export default {
 
           try {
             // Grabar en BD: Nueva Tarea
-            const { data } = await axios.post('http://todolist-vue-laravel-server.test/api/tasks', { "name": this.taskName });
+            const { data } = await axios.post(`${process.env.baseUrl}/api/tasks`, { "name": this.taskName });
 
             // Actualizar state
             this.$store.commit('addTask', data);
@@ -121,7 +121,7 @@ export default {
 
           try {
             // Grabar en BD: Edicion
-            const { data } = await axios.put(`http://todolist-vue-laravel-server.test/api/tasks/${this.$store.state.selectedTask.id}`, { "name": this.taskName });
+            const { data } = await axios.put(`${process.env.baseUrl}/api/tasks/${this.$store.state.selectedTask.id}`, { "name": this.taskName });
 
             // Actualizar state
             this.$store.commit('editTask', data);
@@ -152,7 +152,7 @@ export default {
 
     async getTasks() {
       try {
-        const { data } = await axios.get('http://todolist-vue-laravel-server.test/api/tasks');
+        const { data } = await axios.get(`${process.env.baseUrl}/api/tasks?completed=0`);
 
         this.$store.commit('clearTasks');
 

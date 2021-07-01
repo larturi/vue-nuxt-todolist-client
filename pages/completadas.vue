@@ -80,7 +80,7 @@ export default {
 
     async getTasks() {
       try {
-        const { data } = await axios.get('http://todolist-vue-laravel-server.test/api/tasks?completed=1');
+        const { data } = await axios.get(`${process.env.baseUrl}/api/tasks?completed=1`);
 
         this.$store.commit('clearCompletedTasks');
 

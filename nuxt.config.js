@@ -1,4 +1,13 @@
 export default {
+
+  env: {
+    baseUrl: process.env.API_URL || 'http://todolist-vue-laravel-server.test'
+  },
+
+  router: {
+    base: '/dist/'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'todolist-vue-nuxt-client',
@@ -45,6 +54,8 @@ export default {
   modules: [
     '@nuxtjs/axios'
   ],
+
+  target: 'static',
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
