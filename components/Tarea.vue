@@ -6,7 +6,7 @@
                 <span>
                     <input type="radio" v-on:click.prevent="onClickToggleCompleted(task)">
                 </span>
-
+                
                 <span class="ml-1 font-normal">{{ task.name }}</span>
             </div>
 
@@ -20,12 +20,14 @@
 
                     <button 
                         class="p-3 mt-2 font-bold bg-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-l"
+                        :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickCancel()"
                         v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
                     >CANCELAR</button>
 
                     <button 
                         class="p-3 mt-2 font-bold bg-pink text-white text-xs lg:w-28 w-6/12 mb-4 float-right rounded-l"
+                        :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickDelete(task)"
                     >ELIMINAR</button>
                 </span>
@@ -88,6 +90,10 @@ export default {
             // Actualizo en la BD
             await axios.put(`${process.env.baseUrl}/api/tasks/${tarea.id}`, tarea);
         },
+
+        roundedButtonRight(padre) {
+            return (padre==='completadas') && 'rounded-r' ;
+        }
 
     }
 }

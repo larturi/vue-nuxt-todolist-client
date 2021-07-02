@@ -1,10 +1,10 @@
 <template>
-  <div class="">
+  <div>
 
     <div class="mt-4">
       
         <div class="flex justify-center">
-          <div class="mt-3 md:w-6/12">
+          <div class="mt-3 w-10/12">
 
             <div>
               <h1 
