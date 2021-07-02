@@ -1,6 +1,6 @@
 <template>
     
-     <li class="py-1 border-b border-gray border-1 font-semibold list-none">
+     <li class="py-1 border-b border-gray border-1 font-semibold list-none first-child:border-t">
          <div class="sm:flex sm:justify-between flex-col md:flex-row">
             <div class="w-full p-3 mt-1">
                 <span>
