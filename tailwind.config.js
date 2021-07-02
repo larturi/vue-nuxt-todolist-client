@@ -7,6 +7,9 @@ module.exports = {
       black: {
         DEFAULT: '#202020',
       },
+      black2: {
+        DEFAULT: '#606060',
+      },
       darkgray: {
         DEFAULT: '#282828',
       },

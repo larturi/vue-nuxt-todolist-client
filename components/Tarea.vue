@@ -1,8 +1,8 @@
 <template>
     
-     <li class="py-1 border-b border-gray border-1 font-semibold list-none first-child:border-t">
-         <div class="sm:flex sm:justify-between flex-col md:flex-row">
-            <div class="w-full p-3 mt-1">
+     <li class="py-1 border-b border-black2 border-1 font-semibold list-none">
+         <div class="flex justify-between flex-row">
+            <div class="w-full p-3 m-auto">
                 <span>
                     <input type="radio" v-on:click.prevent="onClickToggleCompleted(task)">
                 </span>
@@ -10,27 +10,27 @@
                 <span class="ml-1 font-normal">{{ task.name }}</span>
             </div>
 
-            <div class="w-full mt-1">
-                <span class="w-full">
+            <div class="w-full flex mt-1">
+                <div class="w-full m-auto">
                     <button 
-                        class="p-2 mt-2 mr-2 font-bold bg-yellow text-white border border-yellow text-xs lg:w-28 w-6/12 float-right rounded-r focus:outline-none"
+                        class="p-2 mt-2 mr-2 font-bold bg-yellow text-white border border-yellow text-xs w-16 lg:w-28 float-right rounded-r focus:outline-none"
                         v-on:click.prevent="onClickSelect(task)"
                         v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
-                    >EDITAR</button>
+                    > <fa icon="edit"></fa></button>
 
                     <button 
-                        class="p-2 mt-2 mr-2 font-bold bg-purple border border-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-r focus:outline-none"
+                        class="p-2 mt-2 mr-2 font-bold bg-purple border border-purple text-white text-xs w-16 lg:w-28 float-right rounded-r focus:outline-none"
                         :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickCancel()"
                         v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
-                    >CANCELAR</button>
+                    ><fa icon="hand-paper"></fa></button>
 
                     <button 
-                        class="p-2 mt-2 font-bold bg-gray border border-gray text-white text-xs lg:w-28 mb-4 float-right rounded-l focus:outline-none"
+                        class="p-2 mt-2 font-bold bg-gray border border-gray text-white text-xs w-16 lg:w-28 mb-4 float-right rounded-l focus:outline-none"
                         :class="[roundedButtonRight(padre), widthButtonDelete(padre)]" 
                         v-on:click.prevent="onClickDelete(task)"
-                    >ELIMINAR</button>
-                </span>
+                    ><fa icon="trash"></fa></button>
+                </div>
             </div>
         </div>
      </li>
@@ -96,10 +96,16 @@ export default {
         },
 
         widthButtonDelete(padre) {
-            return (padre==='completadas') ? 'w-full' : 'w-6/12' ;
+            return (padre==='completadas') ? 'w-full' : 'w-18 text-xs' ;
         }
 
     }
 }
 
 </script>
+
+<style scoped>
+    li:first-child {
+        border-top-width: 1px;
+    }
+</style>
