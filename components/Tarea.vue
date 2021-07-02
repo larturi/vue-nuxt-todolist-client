@@ -19,7 +19,7 @@
                     >EDITAR</button>
 
                     <button 
-                        class="p-3 mt-2 font-bold bg-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-l"
+                        class="p-3 mt-2 font-bold bg-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-r"
                         :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickCancel()"
                         v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
@@ -66,7 +66,6 @@ export default {
 
         onClickSelect(tarea) {
             this.task = tarea;
-            //this.taskName = tarea.name;
             this.$store.commit('isEdit', true);
             this.$store.commit('selectedTask', tarea);
             this.$emit('newTaskName');
@@ -74,6 +73,7 @@ export default {
 
         onClickCancel() {
             this.$emit('cancelTask');
+            this.$store.commit('isEdit', false);
         },
 
         async onClickToggleCompleted(tarea) {

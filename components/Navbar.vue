@@ -17,7 +17,7 @@
             <li class="nav-item">
               <router-link 
                   to="/"
-                  class="px-1 py-2 mr-6 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  class="px-1 py-2 mr-6 ml-4 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
               >
                 <span>Pendientes</span>
               </router-link>
@@ -26,7 +26,7 @@
             <li class="nav-item">
               <router-link 
                   to="/completadas"
-                  class="px-1 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  class="px-1 py-2 ml-4 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
               >
                 <span>Completadas</span>
               </router-link>
