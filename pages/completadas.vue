@@ -4,15 +4,9 @@
     <div class="mt-4">
       
         <div class="flex justify-center">
-          <div class="mt-3 w-10/12 lg:w-7/12">
+          <div class="mt-3 w-10/12 lg:w-6/12">
 
             <div>
-              <h1 
-                class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-pink"
-                v-if="tasks.length > 0"
-              >
-                Tareas Completadas
-              </h1>
               
               <ul class="mb-32 bg-black">
                 <Tarea 
