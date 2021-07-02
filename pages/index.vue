@@ -4,6 +4,7 @@
     <div class="mt-4">
       
         <div class="flex justify-center">
+
           <div class="mt-3 w-10/12 lg:w-6/12">
 
             <form @submit.prevent="addTask">
@@ -32,8 +33,10 @@
             </form>
 
             <div class="mt-6">
+
+              <Loading v-if="loading"/>
     
-              <ul class="mb-32 bg-black">
+              <ul v-else class="mb-32 bg-black">
                 <Tarea 
                   v-for="tarea in tasks"
                   :key="tarea.id"
@@ -45,7 +48,7 @@
               </ul>
 
               <NoTasks 
-                v-if="tasks.length === 0"
+                v-if="tasks.length === 0 && !loading"
                 mensaje="No tienes tareas pendientes! 😎"
               />
               
@@ -62,13 +65,15 @@
 import axios from 'axios';
 import Tarea from '../components/Tarea.vue';
 import NoTasks from '../components/NoTasks.vue';
+import Loading from '../components/Loading.vue';
 
 export default {
 
   data() {
     return {
       task: null,
-      taskName: ''    
+      taskName: '',
+      loading: true,    
     }
   },
 
@@ -80,7 +85,8 @@ export default {
 
   components: {
     Tarea,
-    NoTasks
+    NoTasks,
+    Loading
   },
 
   computed: {
@@ -151,6 +157,9 @@ export default {
     },
 
     async getTasks() {
+      
+      this.loading = true;
+
       try {
         const { data } = await axios.get(`${process.env.baseUrl}/api/tasks?completed=0`);
 
@@ -160,8 +169,11 @@ export default {
           this.$store.commit('addTask', task);
         });
 
+        this.loading = false;
+
       } catch (error) {
         console.error(error);
+        this.loading = false;
       }
     },
 

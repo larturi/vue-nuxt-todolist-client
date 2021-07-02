@@ -2,13 +2,19 @@
   <div>
 
     <div class="mt-4">
-      
+
         <div class="flex justify-center">
           <div class="mt-3 w-10/12 lg:w-6/12">
 
+          <h1 class="p-3 rounded mt-4 mb-8 bg-white text-black text-center text-lg font-bold border-yellow border-l-8">
+            Completadas
+          </h1>
+
             <div>
+
+              <Loading v-if="loading"/>
               
-              <ul class="mb-32 bg-black">
+              <ul v-else class="mb-32 bg-black">
                 <Tarea 
                   v-for="(tarea, index) in tasks"
                   :key="tarea.id"
@@ -22,7 +28,7 @@
                 v-if="tasks.length === 0"
                 mensaje="No hay tareas completadas."
               />
-              
+
             </div>
           </div>
         </div>
@@ -36,13 +42,15 @@
 import axios from 'axios';
 import Tarea from '../components/Tarea.vue';
 import NoTasks from '../components/NoTasks.vue';
+import Loading from '../components/Loading.vue';
 
 export default {
 
   data() {
     return {
       task: '',
-      isEdit: false
+      isEdit: false,
+      loading: true,
     }
   },
 
@@ -54,7 +62,8 @@ export default {
 
   components: {
     Tarea,
-    NoTasks
+    NoTasks,
+    Loading
   },
 
   computed: {
@@ -73,6 +82,8 @@ export default {
   methods: {
 
     async getTasks() {
+      this.loading = true;
+
       try {
         const { data } = await axios.get(`${process.env.baseUrl}/api/tasks?completed=1`);
 
@@ -82,8 +93,11 @@ export default {
           this.$store.commit('addCompletedTask', task);
         });
 
+        this.loading = false;
+
       } catch (error) {
         console.error(error);
+        this.loading = false;
       }
     },
 
