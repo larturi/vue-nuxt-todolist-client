@@ -1,6 +1,6 @@
 <template>
     
-     <li class="py-4 border-b border-gray border-1 font-semibold list-none">
+     <li class="py-1 border-b border-gray border-1 font-semibold list-none">
          <div class="sm:flex sm:justify-between flex-col md:flex-row">
             <div class="w-full p-3 mt-1">
                 <span>
@@ -10,23 +10,23 @@
                 <span class="ml-1 font-normal">{{ task.name }}</span>
             </div>
 
-            <div class="w-full">
+            <div class="w-full mt-1">
                 <span class="w-full">
                     <button 
-                        class="p-3 mt-2 font-bold bg-yellow text-black text-xs lg:w-28 w-6/12 float-right rounded-r"
+                        class="p-2 mt-2 mr-2 font-bold bg-yellow text-white border border-yellow text-xs lg:w-28 w-6/12 float-right rounded-r focus:outline-none"
                         v-on:click.prevent="onClickSelect(task)"
                         v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
                     >EDITAR</button>
 
                     <button 
-                        class="p-3 mt-2 font-bold bg-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-r"
+                        class="p-2 mt-2 mr-2 font-bold bg-purple border border-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-r focus:outline-none"
                         :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickCancel()"
                         v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
                     >CANCELAR</button>
 
                     <button 
-                        class="p-3 mt-2 font-bold bg-pink text-white text-xs lg:w-28 mb-4 float-right rounded-l"
+                        class="p-2 mt-2 font-bold bg-gray border border-gray text-white text-xs lg:w-28 mb-4 float-right rounded-l focus:outline-none"
                         :class="[roundedButtonRight(padre), widthButtonDelete(padre)]" 
                         v-on:click.prevent="onClickDelete(task)"
                     >ELIMINAR</button>

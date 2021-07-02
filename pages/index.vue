@@ -21,7 +21,7 @@
 
               <div>
                  <button 
-                  class="w-full px-4 py-3 shadow appearance-none mt-2 font-bold text-white rounded"
+                  class="w-full px-4 py-3 shadow appearance-none mt-2 uppercase font-bold text-white rounded focus:outline-none"
                   :class="colorButtonAddOrEdit" 
                   type="submit"
                 >
@@ -88,7 +88,7 @@ export default {
       return this.$store.state.tasks;
     },
     colorButtonAddOrEdit() {
-      return this.$store.state.isEdit ? 'bg-yellow text-black' : 'bg-pink text-white';
+      return this.$store.state.isEdit ? 'bg-yellow text-white' : 'bg-gray text-white';
     }
   },
 
