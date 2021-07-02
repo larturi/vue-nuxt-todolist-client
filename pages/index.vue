@@ -4,7 +4,7 @@
     <div class="mt-4">
       
         <div class="flex justify-center">
-          <div class="mt-3 w-8/12">
+          <div class="mt-3 w-10/12 lg:w-7/12">
 
             <form @submit.prevent="addTask">
 
@@ -38,7 +38,7 @@
               >
                 Tareas Pendientes
               </h1>
-              <ul class="mb-10 bg-black">
+              <ul class="mb-32 bg-black">
                 <Tarea 
                   v-for="tarea in tasks"
                   :key="tarea.id"

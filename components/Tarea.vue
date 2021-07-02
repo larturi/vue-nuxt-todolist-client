@@ -2,7 +2,7 @@
     
      <li class="py-4 border-b border-gray border-1 font-semibold list-none">
          <div class="sm:flex sm:justify-between flex-col md:flex-row">
-            <div class="w-full p-3">
+            <div class="w-full p-3 mt-1">
                 <span>
                     <input type="radio" v-on:click.prevent="onClickToggleCompleted(task)">
                 </span>
@@ -26,8 +26,8 @@
                     >CANCELAR</button>
 
                     <button 
-                        class="p-3 mt-2 font-bold bg-pink text-white text-xs lg:w-28 w-6/12 mb-4 float-right rounded-l"
-                        :class="roundedButtonRight(padre)" 
+                        class="p-3 mt-2 font-bold bg-pink text-white text-xs lg:w-28 mb-4 float-right rounded-l"
+                        :class="[roundedButtonRight(padre), widthButtonDelete(padre)]" 
                         v-on:click.prevent="onClickDelete(task)"
                     >ELIMINAR</button>
                 </span>
@@ -93,6 +93,10 @@ export default {
 
         roundedButtonRight(padre) {
             return (padre==='completadas') && 'rounded-r' ;
+        },
+
+        widthButtonDelete(padre) {
+            return (padre==='completadas') ? 'w-full' : 'w-6/12' ;
         }
 
     }
