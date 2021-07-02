@@ -4,19 +4,24 @@
     <div class="mt-4">
       
         <div class="flex justify-center">
-          <div class="mt-3 md:w-6/12">
+          <div class="mt-3 w-10/12">
 
             <form @submit.prevent="addTask">
 
               <div class="relative mt-5">
                 <input 
-                  class="w-full h-10 shadow appearance-none pl-3 pr-8 py-6 text-black text-base placeholder-gray focus:shadow-outline" 
+                  class="w-full h-10 shadow appearance-none pl-3 pr-8 py-6 text-black text-base 
+                       placeholder-gray focus:shadow-outline rounded" 
                   type="text"
                   v-model="taskName"
                   placeholder="¿Qué vas a hacer hoy?"
                 />
-                <button 
-                  class="absolute inset-y-0 right-0 flex items-center px-4 py-6 font-bold text-white"
+               
+              </div>
+
+              <div>
+                 <button 
+                  class="w-full px-4 py-3 shadow appearance-none mt-2 font-bold text-white rounded"
                   :class="colorButtonAddOrEdit" 
                   type="submit"
                 >
@@ -28,7 +33,7 @@
 
             <div>
               <h1 
-                class="mt-8 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow"
+                class="mt-6 font-bold font-xl mb-6 bg-white text-black p-3 border-l-8 border-yellow"
                 v-if="tasks.length > 0"
               >
                 Tareas Pendientes

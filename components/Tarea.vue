@@ -1,30 +1,36 @@
 <template>
     
      <li class="py-4 border-b border-gray border-1 font-semibold list-none">
-         <span>
-             <input type="radio" v-on:click.prevent="onClickToggleCompleted(task)">
-         </span>
+         <div class="sm:flex sm:justify-between flex-col md:flex-row">
+            <div class="w-full p-3">
+                <span>
+                    <input type="radio" v-on:click.prevent="onClickToggleCompleted(task)">
+                </span>
 
-         <span class="ml-1">{{ task.name }}</span>
+                <span class="ml-1 font-normal">{{ task.name }}</span>
+            </div>
 
-         <span class="float-right px-2">
-            <button 
-                class="p-2 -mt-5 w-20 font-bold bg-yellow text-black text-xs mr-2"
-                v-on:click.prevent="onClickSelect(task)"
-                v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
-            >EDITAR</button>
+            <div class="w-full">
+                <span class="w-full">
+                    <button 
+                        class="p-3 mt-2 font-bold bg-yellow text-black text-xs lg:w-28 w-6/12 float-right rounded-r"
+                        v-on:click.prevent="onClickSelect(task)"
+                        v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
+                    >EDITAR</button>
 
-            <button 
-                class="p-2 -mt-5 w-20 font-bold bg-purple text-white text-xs mr-2"
-                v-on:click.prevent="onClickCancel()"
-                v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
-            >CANCELAR</button>
+                    <button 
+                        class="p-3 mt-2 font-bold bg-purple text-white text-xs lg:w-28 w-6/12 float-right rounded-l"
+                        v-on:click.prevent="onClickCancel()"
+                        v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
+                    >CANCELAR</button>
 
-            <button 
-                class="p-2 -mt-5 w-20 font-bold bg-pink text-white text-xs"
-                v-on:click.prevent="onClickDelete(task)"
-            >ELIMINAR</button>
-         </span>
+                    <button 
+                        class="p-3 mt-2 font-bold bg-pink text-white text-xs lg:w-28 w-6/12 mb-4 float-right rounded-l"
+                        v-on:click.prevent="onClickDelete(task)"
+                    >ELIMINAR</button>
+                </span>
+            </div>
+        </div>
      </li>
 
 </template>
