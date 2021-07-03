@@ -13,20 +13,20 @@
             <div class="w-full flex mt-1">
                 <div class="w-full m-auto">
                     <button 
-                        class="p-2 mt-2 mr-2 font-bold bg-yellow text-white border border-yellow text-xs w-16 lg:w-28 float-right rounded-r focus:outline-none"
+                        class="p-2 mt-2 mr-2 font-bold bg-yellow text-white border border-yellow text-xs w-14 lg:w-16 float-right rounded-r focus:outline-none"
                         v-on:click.prevent="onClickSelect(task)"
                         v-if="padre==='pendientes' && !this.$store.state.selectedTask || (this.$store.state.selectedTask && this.$store.state.selectedTask.id !== task.id)"
                     > <fa icon="edit"></fa></button>
 
                     <button 
-                        class="p-2 mt-2 mr-2 font-bold bg-purple border border-purple text-white text-xs w-16 lg:w-28 float-right rounded-r focus:outline-none"
+                        class="p-2 mt-2 mr-2 font-bold bg-purple border border-purple text-white text-xs w-14 lg:w-16 float-right rounded-r focus:outline-none"
                         :class="roundedButtonRight(padre)" 
                         v-on:click.prevent="onClickCancel()"
                         v-if="this.$store.state.selectedTask && this.$store.state.selectedTask.id === task.id"
                     ><fa icon="hand-paper"></fa></button>
 
                     <button 
-                        class="p-2 mt-2 font-bold bg-gray border border-gray text-white text-xs w-16 lg:w-28 mb-4 float-right rounded-l focus:outline-none"
+                        class="p-2 mt-2 font-bold bg-gray border border-gray text-white text-xs w-14 lg:w-16 mb-4 float-right rounded-l focus:outline-none"
                         :class="[roundedButtonRight(padre), widthButtonDelete(padre)]" 
                         v-on:click.prevent="onClickDelete(task)"
                     ><fa icon="trash"></fa></button>
@@ -96,7 +96,7 @@ export default {
         },
 
         widthButtonDelete(padre) {
-            return (padre==='completadas') ? 'w-full' : 'w-18 text-xs' ;
+            return (padre==='completadas') ? 'w-14' : 'w-14 text-xs' ;
         }
 
     }

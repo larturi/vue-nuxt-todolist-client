@@ -3,7 +3,7 @@
     <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
       <div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
         <router-link  
-          class="font-extrabold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+          class="font-extrabold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white no-underline"
           to="/"
         >
           Todolist Nuxt & Laravel
@@ -71,6 +71,10 @@ a.nuxt-link-active {
 /* exact link will show the primary color for only the exact matching link */
 a.nuxt-link-exact-active {
   border-bottom: solid 2px white;
+}
+
+.no-underline {
+    border-bottom: none !important;
 }
 
 </style>
