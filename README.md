@@ -1,4 +1,14 @@
-# todolist-vue-nuxt-client
+<h1 align="center">
+  Vue & Laravel Todolist 
+</h1>
+
+<h3 align="center">
+  -- Vue, Nuxt, Laravel, MySQL --
+</h3>
+
+<h5 align="center">
+  Made with ❤️ by Leandro Arturi
+</h5>
 
 ## Build Setup
 
