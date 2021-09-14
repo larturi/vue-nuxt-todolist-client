@@ -1,4 +1,4 @@
-# Vue & Laravel Todolist (Frontenf)
+# Vue & Laravel Todolist (Frontend)
 
 ### Vue, Nuxt, Laravel, MySQL
 
