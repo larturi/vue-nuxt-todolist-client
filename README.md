@@ -1,14 +1,6 @@
-<h1 align="center">
-  Vue & Laravel Todolist 
-</h1>
+# Vue & Laravel Todolist (Frontenf)
 
-<h3 align="center">
-  -- Vue, Nuxt, Laravel, MySQL --
-</h3>
-
-<h5 align="center">
-  Made with ❤️ by Leandro Arturi
-</h5>
+### Vue, Nuxt, Laravel, MySQL
 
 ## Build Setup
 
@@ -28,3 +20,5 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+##### Made with ❤️ by Leandro Arturi
